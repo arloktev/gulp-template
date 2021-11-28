@@ -3,7 +3,7 @@ const plumber = require('gulp-plumber');
 const pug = require('gulp-pug');
 const browserSync = require('browser-sync');
 
-const paths = require('../paths');
+const { paths } = require('../config');
 
 const views = () => {
   return src(paths.views.src)

@@ -3,9 +3,7 @@ const gulpIf = require('gulp-if');
 const imagemin = require('gulp-imagemin');
 const browserSync = require('browser-sync');
 
-const paths = require('../paths');
-
-const isProduction = process.env.NODE_ENV === 'production';
+const { paths, isProduction } = require('../config');
 
 const images = () => {
   return (

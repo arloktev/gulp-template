@@ -1,7 +1,7 @@
 const { src, dest } = require('gulp');
 const browserSync = require('browser-sync');
 
-const paths = require('../paths');
+const { paths } = require('../config');
 
 const fonts = () => {
   return (
