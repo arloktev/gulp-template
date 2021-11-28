@@ -6,10 +6,20 @@ const sourcemaps = require('gulp-sourcemaps');
 const plumber = require('gulp-plumber');
 const gulpIf = require('gulp-if');
 const sass = require('gulp-sass')(require('sass'));
+const postcssNormalize = require('postcss-normalize');
+const csso = require('postcss-csso');
 
-const paths = require('../paths');
+const { paths, isProduction } = require('../config');
 
-const isProduction = process.env.NODE_ENV === 'production';
+const commonPlugins = [
+  autoprefixer(),
+  postcssNormalize(),
+]
+
+const plugins = [
+  ...commonPlugins,
+  csso()
+];
 
 const styles = () => {
   return (
@@ -17,12 +27,9 @@ const styles = () => {
       .pipe(plumber())
       .pipe(gulpIf(!isProduction, sourcemaps.init()))
       .pipe(sass())
-      .pipe(postcss(
-        [
-          autoprefixer()
-        ]
-      ))
+      .pipe(postcss(isProduction ? plugins : commonPlugins))
       .pipe(gulpIf(!isProduction, sourcemaps.write('.')))
+      .pipe(plumber.stop())
       .pipe(dest(paths.styles.dist))
       .pipe(browserSync.stream())
   )
