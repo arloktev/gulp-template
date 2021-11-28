@@ -6,8 +6,9 @@ const fonts = require('./fonts');
 const views = require('./views');
 const svgSprite = require('./svgSprite');
 const images = require('./images');
+const scripts = require('./scripts');
 
-const paths = require('../paths');
+const { paths } = require('../config');
 
 const server = () => {
   browserSync.init({
@@ -19,6 +20,7 @@ const server = () => {
   watch(paths.views.watch, views);
   watch(paths.sprites.watch, svgSprite);
   watch(paths.images.watch, images);
+  watch(paths.scripts.watch, scripts);
 }
 
 module.exports = server;
