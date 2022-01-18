@@ -26,7 +26,7 @@ const styles = () => {
     src(paths.styles.src)
       .pipe(plumber())
       .pipe(gulpIf(!isProduction, sourcemaps.init()))
-      .pipe(sass())
+      .pipe(sass().on('error', sass.logError))
       .pipe(postcss(isProduction ? plugins : commonPlugins))
       .pipe(gulpIf(!isProduction, sourcemaps.write('.')))
       .pipe(plumber.stop())
